@@ -10,14 +10,12 @@ const UserList = () => {
   }, []);
 
   const getUsers = async () => {
-    // Ganti URL localhost ke URL GCP
-    const response = await axios.get("https://tcc-tugas5-be-278240587659.us-central1.run.app/users");
+    const response = await axios.get("https://be-278240587659.us-central1.run.app/users");
     setUsers(response.data);
   };
 
   const deleteUser = async (id) => {
-    // Ganti URL localhost ke URL GCP
-    await axios.delete(`https://tcc-tugas5-be-278240587659.us-central1.run.app/delete-users/${id}`);
+    await axios.delete(`https://be-278240587659.us-central1.run.app/delete-users/${id}`);
     getUsers();
   };
 
