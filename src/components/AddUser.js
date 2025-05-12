@@ -1,16 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddUser = () => {
+const EditUser = () => {
   const [judul, setJudul] = useState("");
   const [note, setNote] = useState("");
   const [pembuat, setPembuat] = useState("");
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  const saveUser = async (e) => {
+  useEffect(() => {
+    getUserById();
+  }, []);
+
+  const getUserById = async () => {
+    const response = await axios.get("https://be-278240587659.us-central1.run.app/users");
+    const user = response.data.find((u) => u.id == id);
+    if (user) {
+      setJudul(user.Judul);
+      setNote(user.Note);
+      setPembuat(user.Pembuat);
+    }
+  };
+
+  const updateUser = async (e) => {
     e.preventDefault();
-    await axios.post("https://be-278240587659.us-central1.run.app/add-users", {
+    await axios.put(`https://be-278240587659.us-central1.run.app/edit-users/${id}`, {
       Judul: judul,
       Note: note,
       Pembuat: pembuat
@@ -20,8 +35,8 @@ const AddUser = () => {
 
   return (
     <div className="column is-half">
-      <h1 className="title">Tambah Catatan</h1>
-      <form onSubmit={saveUser}>
+      <h1 className="title">Edit Catatan</h1>
+      <form onSubmit={updateUser}>
         <div className="field">
           <label className="label">Judul</label>
           <input className="input" type="text" value={judul} onChange={(e) => setJudul(e.target.value)} required />
@@ -34,10 +49,10 @@ const AddUser = () => {
           <label className="label">Pembuat</label>
           <input className="input" type="text" value={pembuat} onChange={(e) => setPembuat(e.target.value)} required />
         </div>
-        <button className="button is-primary" type="submit">Simpan</button>
+        <button className="button is-primary" type="submit">Update</button>
       </form>
     </div>
   );
 };
 
-export default AddUser;
+export default EditUser;
