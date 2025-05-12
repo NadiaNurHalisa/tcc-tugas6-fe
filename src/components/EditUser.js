@@ -13,24 +13,22 @@ const EditUser = () => {
     getUserById();
   }, []);
 
-const getUserById = async () => {
-  // Ganti URL localhost ke URL GCP
-  const response = await axios.get("https://tcc-tugas5-be-278240587659.us-central1.run.app/add-users");
-  const user = response.data.find((u) => u.id == id);
-  if (user) {
-    setJudul(user.Judul);
-    setNote(user.Note);
-    setPembuat(user.Pembuat);
-  }
-};
+  const getUserById = async () => {
+    const response = await axios.get("https://be-278240587659.us-central1.run.app/users");
+    const user = response.data.find((u) => u.id == id);
+    if (user) {
+      setJudul(user.Judul);
+      setNote(user.Note);
+      setPembuat(user.Pembuat);
+    }
+  };
 
   const updateUser = async (e) => {
     e.preventDefault();
-    // Ganti URL localhost ke URL GCP
-    await axios.put(`https://tcc-tugas5-be-278240587659.us-central1.run.app/edit-users/${id}`, {
+    await axios.put(`https://be-278240587659.us-central1.run.app/edit-users/${id}`, {
       Judul: judul,
       Note: note,
-      Pembuat: pembuat
+      Pembuat: pembuat,
     });
     navigate("/");
   };
@@ -41,17 +39,37 @@ const getUserById = async () => {
       <form onSubmit={updateUser}>
         <div className="field">
           <label className="label">Judul</label>
-          <input className="input" type="text" value={judul} onChange={(e) => setJudul(e.target.value)} required />
+          <input
+            className="input"
+            type="text"
+            value={judul}
+            onChange={(e) => setJudul(e.target.value)}
+            required
+          />
         </div>
         <div className="field">
           <label className="label">Note</label>
-          <input className="input" type="text" value={note} onChange={(e) => setNote(e.target.value)} required />
+          <input
+            className="input"
+            type="text"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            required
+          />
         </div>
         <div className="field">
           <label className="label">Pembuat</label>
-          <input className="input" type="text" value={pembuat} onChange={(e) => setPembuat(e.target.value)} required />
+          <input
+            className="input"
+            type="text"
+            value={pembuat}
+            onChange={(e) => setPembuat(e.target.value)}
+            required
+          />
         </div>
-        <button className="button is-primary" type="submit">Update</button>
+        <button className="button is-primary" type="submit">
+          Update
+        </button>
       </form>
     </div>
   );
