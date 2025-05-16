@@ -10,12 +10,12 @@ const UserList = () => {
   }, []);
 
   const getUsers = async () => {
-    const response = await axios.get("https://be-278240587659.us-central1.run.app/users");
+    const response = await axios.get("https://be-278240587659.us-central1.run.app/catatan/users");
     setUsers(response.data);
   };
 
   const deleteUser = async (id) => {
-    await axios.delete(`https://be-278240587659.us-central1.run.app/delete-users/${id}`);
+    await axios.delete(`https://be-278240587659.us-central1.run.app/catatan/delete-users/${id}`);
     getUsers();
   };
 
