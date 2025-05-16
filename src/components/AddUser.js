@@ -11,7 +11,7 @@ const AddUser = () => {
   const saveUser = async (e) => {
     e.preventDefault();
     // Ganti URL localhost ke URL GCP
-    await axios.post("https://tcc-tugas5-be-278240587659.us-central1.run.app/catatan/add-users", {
+    await axios.post("https://be-278240587659.us-central1.run.app/catatan/add-users", {
 
       Judul: judul,
       Note: note,
