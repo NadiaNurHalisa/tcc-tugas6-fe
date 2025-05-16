@@ -14,7 +14,7 @@ const EditUser = () => {
   }, []);
 
   const getUserById = async () => {
-    const response = await axios.get("https://be-278240587659.us-central1.run.app/users");
+    const response = await axios.get("https://be-278240587659.us-central1.run.app/catatan/users");
     const user = response.data.find((u) => u.id == id);
     if (user) {
       setJudul(user.Judul);
@@ -25,7 +25,7 @@ const EditUser = () => {
 
   const updateUser = async (e) => {
     e.preventDefault();
-    await axios.put(`https://be-278240587659.us-central1.run.app/edit-users/${id}`, {
+    await axios.put(`https://be-278240587659.us-central1.run.app/catatan/edit-users/${id}`, {
       Judul: judul,
       Note: note,
       Pembuat: pembuat
